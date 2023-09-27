@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Shopping List Page</h1>
-
-    <h5>Name:</h5>
-    <p>{{name}}</p>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Shopping List Page</span>
+            <span class="navbar-text">{{ name }}</span>
+        </div>
+        <form class="d-flex">
+            <a href="{% url 'main:logout' %}">
+                <button class="btn btn-outline-success me-2" type="button">Logout</button>
+            </a>
+        </form>
+    </nav>
 
     <h5>Class:</h5>
     <p>{{class}}</p>
@@ -25,6 +32,18 @@
                 <td>{{product.price}}</td>
                 <td>{{product.description}}</td>
                 <td>{{product.date_added}}</td>
+                <td>
+                    <a href="{% url 'main:edit_product' product.pk %}">
+                        <button>
+                            Edit
+                        </button>
+                    </a>
+                    <a href="{% url 'main:delete_product' product.pk %}">
+                        <button>
+                            Delete
+                        </button>
+                    </a>
+                </td>
             </tr>
         {% endfor %}
     </table>
@@ -38,11 +57,4 @@
     </a>
 
     <h5>Last login session: {{ last_login }}</h5>
-
-    <a href="{% url 'main:logout' %}">
-        <button>
-            Logout
-        </button>
-    </a>
-    
 {% endblock content %}
